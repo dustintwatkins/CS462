@@ -1,0 +1,24 @@
+Create a new channel (pick any name and type you like). 
+	Send an event to the pico using the new channel and the original (default) channel. 
+   		Do you get the same result on both? Why or why not? 
+		Got different txn_id
+			For new channel: "txn_id": "cjqy46fu8000n93vrfkpx83ql"
+			For default channel: "txn_id": "cjqy46xw3000o93vrf841d92d"
+
+		Delete the channel.
+			Resend the event using the deleted channel. 
+			What happens? Why?
+				I got an error: "error": "ECI not found: M9w1dBhNe4n9u4XCCj1TpA"
+				The reason is because the channel does not exist
+
+		
+Send the misspelled event ecco/hello to your pico. 
+	What do you observe? Why?
+		"directives": [] 
+		Because there are no directives spelled ecco, we have one spelt echo
+
+Add a new rule to the hello_world ruleset that selects on echo/monkey and responds with
+"Hello Monkey" unless an event attribute named name is given, in which case it will respond with 
+"Hello " followed by the given name. Hint: use the .defaultsTo() operator. Use the .klog() operator to log the value that is used. 
+
+
