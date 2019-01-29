@@ -20,9 +20,9 @@ ruleset io.picolabs.twilio_v2 {
     messages = function(to, from, pageSize) {
             base_url = <<https://#{account_sid}:#{auth_token}@api.twilio.com/2010-04-01/Accounts/#{account_sid}/>>;
             q = {};
-            q = (pageSize.isnull()) => q | q.put({"PageSize":pageSize});
-            q = (to.isnull()) => q | q.put({"To":to});
-            q = (from.isnull()) => q | q.put({"From":from});
+            q = q.put({"PageSize":pageSize.defaultsTo(null)});
+            q = q.put({"To":to.defaultsTo(null)});
+            q = q.put({"From":from.defaultsTo(null)});
             q.klog("Query string before get request: ");
             res = http:get(base_url + "Messages.json", qs = q).klog("Raw Res: ");
             res{"content"}.decode(){"messages"}.klog("Decoded res");
