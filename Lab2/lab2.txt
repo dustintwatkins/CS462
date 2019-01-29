@@ -1,0 +1,8 @@
+For some reason I can't upload videos on canvas... I've sent an email with my screen cast to 
+https://github.com/dustintwatkins/CS462/blob/master/Lab2/module.krl
+
+3.1 If you wanted to create a new module for a different API, in which cases would you create another key module for the keys from that API and in which would you use the same key module? 
+
+If the API is on twilio, I would use the same keys. If the API was for a different app, it would require a different auth token. I would then make another key module for the different API. 
+
+3.2 User-defined actions allow for data preprocessing and the execution of one or more actions. 
