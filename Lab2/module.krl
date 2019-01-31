@@ -1,7 +1,7 @@
 ruleset io.picolabs.twilio_v2 {
   meta {
-    configure using account_sid = "AC91a8c9b18ab863a9d3b6341210008ccb"
-                    auth_token = "c26665da35b3402e717d173989737a89"
+    configure using account_sid = ""
+                    auth_token = ""
     provides
         send_sms,
         messages
