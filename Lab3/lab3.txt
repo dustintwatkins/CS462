@@ -1,14 +1,29 @@
+URL: https://github.com/dustintwatkins/CS462/blob/master/Lab3/wovyn_base.krl
+
 1. What parsing method did you choose?
+	For parsing the 'generalThing' object, I indexed into the object like this: 
+	event:attr("genericThing"){"data"}{"temperature"}[0]{"temperatureF"}
 
 2. Did you accomplish step 5 with an event expression or a rule conditional? What are the advantages and disadvantages of the method you used instead of the other?
-
+	I used an event expression: 
+	select when wovyn heartbeat where event:attr("genericThing")
+	
+	While event expressions and rule conditionals are similar... There are a few differences between the two:
+	Using rule conditionals will be selected more than the event expressions, but fire in the same circumstances. This has implications for system efficiency but not for the overall effect of the rule.
+	Event expressions are more efficient for the network.
+	Source:https://picolabs.atlassian.net/wiki/spaces/docs/pages/1189830/Rules+Are+Simply+Conditional+Actions
+	
 3. What was the output of the testing your ruleset before the find_high_temps rule was added? How many directives were returned? How many rules do you think ran?
+	There was only one directive returned. Only 1 rule ran because no other events were raised.	
 
 4. What was the output of the test after the find_high_temps rule was added? How many directives were returned? How many rules do you think ran?
+	When there was NOT a temperature violation, only 1 directive was returned and two rules ran. When there was a temperature violation, two directives were returned and three rules ran in the wovyn module. If we count the rules that ran from the lab 2 module there 4.  	
 
 5. How do you account for the difference? Diagram the event flow within the pico (i.e. show the event flow from when the pico receives the first event to the directives being created) using a swimlane diagram (Links to an external site.)Links to an external site..
+	
 
 6. Would you say that your find_high_temps rule is an event intermediary? If so, what kind? Justify your answer.
+	
 
 7. How do your logs show that the find_high_temps rule works? Pick out specific lines and explain them.
 
