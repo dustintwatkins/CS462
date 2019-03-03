@@ -1,1 +1,15 @@
-URL: 
+URL: https://github.com/dustintwatkins/CS462/blob/master/Lab4/temperature_store.krl
+
+Questions:
+1. Explain how the rule collect_temperatures and the temperatures function work as an event-query API.
+	The rule and function work as an event-query API because when a wovyn : new_temperature_reading has been raised, we store a temperature and the time it was recorded. It behaves just like an event-query API.
+
+2. Explain your strategy for finding temperatures that are in range.
+	I used the convenient set operations that KRL has. I used difference(). If you have 2 lists A and B. You can use A.difference(B) and it will return all values in A that are not in list B. So for finding temperatures in range, I take the list of all temperatures and find the difference between all temperatures that are stored in the threshold violations list.
+
+3. What happens if provides doesn't list the name of the temperatures function?
+	provides declares thes values in the temperature_store ruleset that will be provided when used as a module. They would not be made available without provides.
+
+4. What happens if shares doesn't list it?
+	shares makes a list of names that are available to sky/cloud queries. So if shares doesn't list temperatures, temperatures is not available to sky/cloud queries.
+ 
