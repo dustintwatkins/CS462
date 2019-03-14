@@ -1,0 +1,46 @@
+1. Why might an auto-approval rule for subscriptions be considered insecure?
+  Auto approval could be insecure because it will accept a subscription if provided
+  certain attributes. Because of this, any subscription request that has the expected
+  attributes will be approved regardless of the source. Using the well known
+  channel (wellKnown_Rx) will make the engine more secure
+
+2. Can you put a sensor pico in more than one sensor management pico
+(i.e. can it have subscriptions to more than one sensor management pico)?
+    No
+
+3. Imagine I have sensor types besides temperature sensors (e.g. pressure, humidity, air quality, etc.).
+How would you properly manage collections of sensors that include heterogeneous sensor types?
+  Each type of sensor (e.g. pressure, humidity, air quality, etc.) would have a parent.
+  Then all the sensors would be children of their respective parents. However, by
+  employing the subscription method, it will become a peer to peer structure
+
+4. Describe how you'd use the techniques from this lesson to create collections
+of temperature sensors in particular rooms or areas of a building. For example,
+I would still have the sensor management pico, but might have collections for each floor in a building.
+  Each floor, area of building, or room would have a respective parent pico. Then
+  all the children would be sensors. As in the previous question, with subscriptions,
+  the parent to child hierarchy becomes a peer to peer structure.
+
+5. Can a sensor pico belong to more than one collection?
+After the modifications of this lab, if a sensor belonged to more
+than one collection and had a threshold violation, what would happen?
+  Yes it is possible. Both collections would receive notifications.
+
+6. When you moved threshold violation notifications from the sensor to the management ruleset,
+ did you add the rules to an existing ruleset or create a new one? Why?
+   I added a rule to an existing ruleset. For previous labs we already had the
+   KRL written for sending a text message. So I just took the KRL from the previous
+   labs and made a rule in my manage subscriptions ruleset
+
+7. When you moved threshold violation notifications from the sensor to the management ruleset,
+ did you add only one rule or more than one rule to achieve this end?
+ Which rules did you add and why (i.e. justify the architectural decisions did you made)?
+  In my manage sensors ruleset, I added one rule. It is called when
+  a sensor_manager_LAB7 threshold_violation event is raised. All it does it create a
+  message and then pass the message to the manage subscriptions ruleset which has
+  a function called send_twilio_text and accepts one parameter which is the message
+  to send in the text. The phone number information is stored in subscription manager.
+  I thought the messages would be standardized, but each subscription could be monitoring
+  a different room and therefore have unique phone numbers to text. So it made sense to
+  keep the message constant and then decouple the text from the sensor manager and
+  let each individual subscription/sensor have its own phone number.

@@ -5,6 +5,10 @@ PICO_ECI = "LrJmBiEhiaxtFdkg1teRox"
 
 """Methods that deal with communicating with pico's via API"""
 
+def introduce(name, eci):
+	res = requests.get("http://localhost:8080/sky/event/{}/1/sensor/introduce?name={}&eci={}".format(PICO_ECI, name, eci))
+	return res.json()
+
 
 def create_sensor(name):
 	# print('Creating sensor: %s' % name)
@@ -20,7 +24,7 @@ def delete_sensor(name):
 
 def get_sensors():
 	# print('Getting all sensors...')
-	res = requests.get("http://localhost:8080/sky/cloud/{}/manage_sensors/sensors".format(PICO_ECI))
+	res = requests.get("http://localhost:8080/sky/cloud/{}/manage_sensors_LAB7/sensors".format(PICO_ECI))
 	return res.json()
 
 
@@ -75,6 +79,7 @@ def test1():
 	"""Tests creating 4 sensors and then deleting all four"""
 	create_sample_sensors()
 	sensors = get_sensors()
+	print(sensors)
 	assert len(sensors.keys()) == 4
 	delete_all_sample_sensors()
 	sensors = get_sensors()
@@ -116,12 +121,30 @@ def test4():
 	delete_all_sample_sensors()
 
 
+def make_new_sub_pico():
+	print('creating sensor')
+	create_sensor('SENSOR 1')
+
+
+def test_introduce():
+	s = "LAB7"
+	LAB7_PICO_eci = "Ei5krYa9YoZ8iLYqa7DKzr"
+	print(introduce(s, LAB7_PICO_eci))
+
 def main():
-	test1()
-	test2()
-	test3()
-	test4()
+	test_introduce()
+	# make_new_sub_pico()
+	# sensors = get_sensors()
+	# for s in sensors:
+	# 	print(s)
+	# delete_all_sample_sensors()
+	# test1()
+	# test2()
+	# test3()
+	# test4()
 
 
 if __name__ == '__main__':
 	main()
+
+
