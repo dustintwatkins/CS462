@@ -1,0 +1,5 @@
+Can a sensor be in more than one collection based on the code you wrote? Why or why not? What are the implications of a sensor being in more than one collection? 
+How could you ensure that only certain picos can raise an event that causes a temperature report to be generated? 
+How do the debug logs show that your scatter-gather system worked?
+How can you know a report is done and all the sensors that are going to respond have reported? 
+Given your answer above, how would you recover if the number of responding sensors is less than the total number of sensors? 

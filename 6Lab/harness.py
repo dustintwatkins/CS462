@@ -34,6 +34,13 @@ def get_sensor_profile(eci):
 	return res.json()
 
 
+def pprint(temps):
+	for sensor in temps:
+		print("\n*** Next Sensor ***\n")
+		for temp in sensor:
+			print(temp)
+
+
 def send_temp(eci, temp):
 	# print('Sending temperature: %s to eci: %s % (temp, eci))
 	requests.post("http://localhost:8080/sky/event/{}/1/wovyn/heartbeat".format(eci), json={"genericThing": {"data": {"temperature": [{"temperatureF": temp}]}}})
@@ -41,7 +48,7 @@ def send_temp(eci, temp):
 
 def get_temperatures():
 	# print('Getting temperatures stored on all sensors')
-	resp = requests.get("http://localhost:8080/sky/cloud/{}/manage_sensors/getTemperatures".format(PICO_ECI))
+	resp = requests.get("http://localhost:8080/sky/cloud/{}/manage_sensors_LAB7/getTemperatures".format(PICO_ECI))
 	return resp.json()
 
 
@@ -122,25 +129,40 @@ def test4():
 
 
 def make_new_sub_pico():
-	print('creating sensor')
-	create_sensor('SENSOR 1')
+	print('created sensor...')
+	create_sensor('SENSOR 4')
+
+def send_temps_lab7():
+	s1_eci = "J6m6CKa8oVsgTeasSYoKPN"
+	s2_eci = "9dnhcJCoszTELVUC7neLC2"
+	s4_eci = "RfyJQC8X7vHs76Ghk68J6K"
+	for i in range(10):
+		send_temp(s1_eci, generate_random_temperature())
+		send_temp(s2_eci, generate_random_temperature())
+		send_temp(s4_eci, generate_random_temperature())
 
 
 def test_introduce():
-	s = "LAB7"
-	LAB7_PICO_eci = "Ei5krYa9YoZ8iLYqa7DKzr"
+	s = "NOT COLLECTION"
+	LAB7_PICO_eci = "BAseJdh5H1h17wuientNiv"
 	print(introduce(s, LAB7_PICO_eci))
 
+
 def main():
-	test_introduce()
 	# make_new_sub_pico()
+	# test_introduce()
 	# sensors = get_sensors()
 	# for s in sensors:
 	# 	print(s)
+
 	# delete_all_sample_sensors()
 	# test1()
 	# test2()
 	# test3()
+
+	# send_temps_lab7()
+	temps = get_temperatures()
+	pprint(temps)
 	# test4()
 
 
